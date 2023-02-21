@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAlHP7QFqgbmnrQIZwtm6VQ1QywaqV35Oc",
@@ -12,6 +13,7 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
+export const storage = getStorage();
 
 // https://console.firebase.google.com/project/chat-48cba/overview
 // Doc - https://firebase.google.com/docs?authuser=0&hl=en
