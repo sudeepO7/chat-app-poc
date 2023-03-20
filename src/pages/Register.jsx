@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore"; 
 import Add from "../img/addAvatar.png"
-import { auth, storage } from "../firebase"
+import { auth, storage, db } from "../firebase"
 
 const Register = () => {
   const [err, setErr] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,21 +19,31 @@ const Register = () => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const storageRef = ref(storage, displayName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on('state_changed',
-        (error) => {
-          setErr(true);
-        }, 
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            await updateProfile(res.user, {
-              displayName,
-              photoURL: downloadURL
+      uploadBytesResumable(storageRef, file)
+        .then(
+          (snapshot) => {
+            getDownloadURL(snapshot.ref).then(async (downloadURL) => {
+              await updateProfile(res.user, {
+                displayName,
+                photoURL: downloadURL
+              });
+              await setDoc(doc(db, "users", res.user.uid), {
+                uid: res.user.uid,
+                displayName,
+                email,
+                photoURL: downloadURL
+              });
+              await setDoc(doc(db, "userChats", res.user.uid), {});
+              navigate("/");
             });
-          });
-        }
-      );
+          },
+          (error) => {
+            console.log('error => ', error);
+            setErr(true);
+          }
+        );
     } catch (error) {
+      console.log('error => ', error);
       setErr(true);
     }
   };
@@ -52,7 +65,7 @@ const Register = () => {
                 <button>Sign up</button>
                 { err && (<span>Something went wrong</span>) }
             </form>
-            <p>You do have an account? Login</p>
+            <p>You do have an account? <Link to="/login">Login</Link></p>
         </div>
     </div>
   )
