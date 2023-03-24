@@ -20,3 +20,6 @@ export const db = getFirestore();
 // https://console.firebase.google.com/project/chat-48cba/overview
 // Doc - https://firebase.google.com/docs?authuser=0&hl=en
 // Common password used - 123456
+// Sudeep 
+// Pass - Test@123456
+// Email - test.user18@gmail.com
