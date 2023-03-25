@@ -24,7 +24,6 @@ function App() {
     )
   };
 
-  console.log('currentUser => ', currentUser);
   return (
     <BrowserRouter>
       <Routes>
