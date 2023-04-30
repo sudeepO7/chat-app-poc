@@ -1,3 +1,18 @@
+# Dummy users for testing
+
+Display Name - Sudeep 
+Email - test.user18@gmail.com
+Password - Test@123456
+
+Display Name - Sam 
+Email - sam123@gmail.com
+Password - Test@123456
+
+# Firebase project link and Doc link
+
+Project - https://console.firebase.google.com/project/chat-48cba/overview
+Doc - https://firebase.google.com/docs?authuser=0&hl=en
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

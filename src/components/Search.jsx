@@ -56,7 +56,9 @@ const Search = () => {
           [combinedId+".date"]: serverTimestamp()
         });
       }
-    } catch(error) {}
+    } catch(error) {
+      console.log('error => ', error);
+    }
     dispatch({
       type: 'CHANGE_USER',
       payload: user
